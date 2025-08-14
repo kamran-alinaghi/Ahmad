@@ -2,6 +2,7 @@ import React from 'react';
 import { signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import './LogoutButton.css';
 import { auth } from '../../utils/firebaseConfig';
 import { logout } from '../../redux/userSlice';
 
@@ -21,7 +22,7 @@ const LogoutButton: React.FC = () => {
   };
 
   return (
-    <button onClick={handleLogout} style={{ marginTop: '2rem' }}>
+    <button className="logout-button" onClick={handleLogout}>
       Logout
     </button>
   );

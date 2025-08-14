@@ -1,9 +1,11 @@
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../../utils/firebaseConfig';
+import { auth, db, googleProvider } from '../../utils/firebaseConfig';
 import { setUser } from '../../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
+import { collection, getDocs } from 'firebase/firestore';
+import { setProjects } from '../../redux/projectSlice';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,20 @@ const LoginPage: React.FC = () => {
           photoURL: user.photoURL,
         })
       );
+
+      // Storing projects in redux store
+      try {
+        const snapshot = await getDocs(collection(db, 'projects'));
+        const list = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+        }));
+        dispatch(setProjects(list));
+      }
+      catch (e) {
+        alert(e);
+      }
+
       navigate('/projects');
     } catch (error) {
       console.error('Google Sign-In error:', error);

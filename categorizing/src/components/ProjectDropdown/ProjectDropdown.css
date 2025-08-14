@@ -2,11 +2,12 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  width: fit-content;
 }
 
 .project-dropdown-container label {
@@ -17,10 +18,34 @@
   color: #333;
 }
 
-.project-dropdown-container select {
+.project-dropdown-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-dropdown-row select {
   padding: 0.4rem 0.6rem;
   font-size: 1rem;
-  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.icon-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.icon-button:hover {
+  background-color: #0056b3;
 }

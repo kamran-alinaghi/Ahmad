@@ -4,30 +4,25 @@ import LoginPage from './components/Login/Login';
 import SignupPage from './components/SignUp/SignupPage';
 import ProjectSelection from './components/ProjectSelection/ProjectSelection';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from './redux/store';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './utils/firebaseConfig';
-import { logout, setUser } from './redux/userSlice';
+import type { AppDispatch, RootState } from './redux/store';
+import { restoreProjectsToRedux, restoreUserToRedux } from './utils/sessionRestore';
 
 const App: React.FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (userInAuth) => {
-      if (userInAuth) {
-        dispatch(setUser({
-          email: userInAuth.email!,
-          name: userInAuth.displayName,
-          photoURL: userInAuth.photoURL,
-        }));
-      } else {
-        dispatch(logout());
+    const restoreSession = async () => {
+      const userRestored = await restoreUserToRedux(dispatch);
+      if (userRestored) {
+        await restoreProjectsToRedux(dispatch);
       }
-    });
+    };
 
-    return () => unsubscribe();
+    restoreSession();
   }, [dispatch]);
+
+
 
   
   const user = useSelector((state: RootState) => state.user);

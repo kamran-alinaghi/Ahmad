@@ -1,22 +1,36 @@
-import React from 'react';
-import AuthForm from '../AuthForm/AuthForm';
-import { useDispatch } from 'react-redux';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../utils/firebaseConfig';
 import { setUser } from '../../redux/userSlice';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import AuthForm from '../AuthForm/AuthForm';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = (email: string, password: string) => {
-    dispatch(setUser({ email }));
-    navigate('/projects');
+    // Optional: implement email/password auth here later
+    console.warn('Email/password login not implemented.');
   };
 
-  const handleGoogleLogin = () => {
-    dispatch(setUser({ email: 'googleuser@example.com' }));
-    navigate('/projects');
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      dispatch(
+        setUser({
+          email: user.email!,
+          name: user.displayName,
+          photoURL: user.photoURL,
+        })
+      );
+      navigate('/projects');
+    } catch (error) {
+      console.error('Google Sign-In error:', error);
+      alert('Google authentication failed.');
+    }
   };
 
   return (

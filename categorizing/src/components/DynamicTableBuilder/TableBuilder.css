@@ -1,0 +1,49 @@
+.table-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+
+.editable-table {
+  min-width: 50px;
+  border-collapse: collapse;
+  width: 100%; 
+  max-width: 400px;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.editable-table th,
+.editable-table td {
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  /* min-width: 50px; */
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.editable-table input {
+  width: 100%;
+  min-width: 50px;
+  max-width: 200px;
+  padding: 0.3rem;
+  border: none;
+  background-color: white;
+  font-size: 0.9rem;
+}
+
+.editable-table button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.editable-table button:hover {
+  color: #0056b3;
+}

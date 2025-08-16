@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (email: string, password: string) => {
+  const handleLogin = (/* email: string, password: string */) => {
     // Optional: implement email/password auth here later
     console.warn('Email/password login not implemented.');
   };
@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
         dispatch(setProjects(list));
       }
       catch (e) {
-        alert(e);
+        //alert(e);
       }
 
       navigate('/projects');

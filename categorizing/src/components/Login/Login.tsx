@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import { collection, getDocs } from 'firebase/firestore';
-import { setProjects } from '../../redux/projectSlice';
+import { setProjects, type Project } from '../../redux/projectSlice';
+import type { TableData } from '../DynamicTableBuilder/types';
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,14 +33,22 @@ const LoginPage: React.FC = () => {
       // Storing projects in redux store
       try {
         const snapshot = await getDocs(collection(db, 'projects'));
-        const list = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          name: doc.data().name,
-        }));
+        const list = snapshot.docs.map((doc) => {
+          const tableRead = doc.data().table;
+          var tableContent = {columns:[''],rows:[{title:'',values:['']}]} as TableData
+          if (tableRead !== undefined) {
+            tableContent = doc.data().table as TableData;
+          }
+          return {
+            id: doc.id,
+            name: doc.data().name,
+            table: tableContent,
+          } as Project
+        });
         dispatch(setProjects(list));
       }
       catch (e) {
-        //alert(e);
+        alert(e);
       }
 
       navigate('/projects');

@@ -3,10 +3,10 @@ import { doc, updateDoc } from 'firebase/firestore';
 import type { TableData } from '../components/DynamicTableBuilder/types';
 import { db } from '../utils/firebaseConfig';
 
-type Project = {
+export type Project = {
   id: string;
   name: string;
-  table?: TableData;
+  table: TableData;
 };
 
 interface ProjectState {
@@ -33,8 +33,13 @@ const projectSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    clearProjects(state) { state.list = []; state.selectedProjectId = null; },
-    setProjects(state, action: PayloadAction<Project[]>) { state.list = action.payload; },
+    clearProjects(state) { 
+      state.list = []; 
+      state.selectedProjectId = null; 
+    },
+    setProjects(state, action: PayloadAction<Project[]>) { 
+      state.list = action.payload; 
+    },
     setSelectedProjectId(state, action: PayloadAction<string | null>) {
       state.selectedProjectId = action.payload;
     },

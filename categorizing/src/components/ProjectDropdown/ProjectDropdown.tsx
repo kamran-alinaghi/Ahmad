@@ -4,8 +4,9 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, } from 'firebase/firesto
 import './ProjectDropdown.css';
 import type { RootState } from '../../redux/store';
 import { db } from '../../utils/firebaseConfig';
-import { setProjects } from '../../redux/projectSlice';
+import { setProjects, setSelectedProjectId } from '../../redux/projectSlice';
 import PopupModal from '../PopupModal/PopupModal';
+import type { TableData } from '../DynamicTableBuilder/types';
 
 const ProjectDropdown: React.FC = () => {
     const projects = useSelector((state: RootState) => state.projects.list);
@@ -21,7 +22,7 @@ const ProjectDropdown: React.FC = () => {
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
         setSelectedId(value);
-        //if (value) alert(`Selected project ID: ${value}`);
+        dispatch(setSelectedProjectId(value));
     };
 
     const openAddModal = () => {
@@ -58,7 +59,12 @@ const ProjectDropdown: React.FC = () => {
             if (!value?.trim()) return;
             try {
                 const ref = await addDoc(collection(db, 'projects'), { name: value });
-                const newProject = { id: ref.id, name: value };
+                const emptyTable: TableData = {
+                    columns:{}as string[],
+                    rows:{
+                    }
+                } as TableData;
+                const newProject = { id: ref.id, name: value, table: emptyTable};
                 dispatch(setProjects([...projects, newProject]));
                 setSelectedId(ref.id);
             } catch (error) {

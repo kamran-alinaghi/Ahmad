@@ -1,0 +1,32 @@
+.cell-with-delete {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 4px;
+}
+
+.cell-with-delete input {
+  flex: 1;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.delete-btn {
+  padding: 0.3rem 0.6rem;
+  background-color: #ffdddd;
+  border: 1px solid #cc0000;
+  border-radius: 4px;
+  color: #cc0000;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  background-color: #ffcccc;
+  color: #a00000;
+}

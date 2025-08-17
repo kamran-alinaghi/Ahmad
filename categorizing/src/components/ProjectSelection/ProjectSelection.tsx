@@ -7,7 +7,6 @@ const ProjectSelection: React.FC = () => {
     <LogoutButton/>
     <ProjectDropdown/>
     <TableContainer/>
-    <h1 style={{ textAlign: 'center' }}>ProjectSelection</h1>
     </div>;
 };
 export default ProjectSelection;

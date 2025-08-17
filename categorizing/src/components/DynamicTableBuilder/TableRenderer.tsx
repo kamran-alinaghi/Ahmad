@@ -1,6 +1,8 @@
 import React from 'react';
-import type { TableData } from './types';
 import './TableBuilder.css';
+import type { TableData } from './types';
+import CellWithDelete from '../CellWithDelete/CellWithDelete';
+import EditableCell from '../EditableCell/EditableCell';
 
 type Props = {
   table: TableData;
@@ -31,11 +33,11 @@ const TableRenderer: React.FC<Props> = ({
             <th></th>
             {table.columns.map((col, colIdx) => (
               <th key={colIdx}>
-                <input
+                <CellWithDelete
                   value={col}
-                  onChange={(e) => updateColumnTitle(colIdx, e.target.value)}
+                  onChange={(v) => updateColumnTitle(colIdx, v)}
+                  onDelete={() => deleteColumn(colIdx)}
                 />
-                <button onClick={() => deleteColumn(colIdx)}>×</button>
               </th>
             ))}
             <th>
@@ -47,17 +49,17 @@ const TableRenderer: React.FC<Props> = ({
           {table.rows.map((row, rowIdx) => (
             <tr key={rowIdx}>
               <td>
-                <input
+                <CellWithDelete
                   value={row.title}
-                  onChange={(e) => updateRowTitle(rowIdx, e.target.value)}
+                  onChange={(v) => updateRowTitle(rowIdx, v)}
+                  onDelete={() => deleteRow(rowIdx)}
                 />
-                <button onClick={() => deleteRow(rowIdx)}>×</button>
               </td>
               {row.values.map((cell, colIdx) => (
                 <td key={colIdx}>
-                  <input
+                  <EditableCell
                     value={cell}
-                    onChange={(e) => updateCell(rowIdx, colIdx, e.target.value)}
+                    onChange={(v) => updateCell(rowIdx, colIdx, v)}
                   />
                 </td>
               ))}

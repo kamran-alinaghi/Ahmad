@@ -48,7 +48,7 @@ const TableContainer = () => {
       {isDirty && (
         <button
           onClick={handleSave}
-          style={{ position: 'absolute', bottom: 10, right: 10 }}
+          style={{ position: 'relative', top:20, left: 0 }}
         >
           Save
         </button>

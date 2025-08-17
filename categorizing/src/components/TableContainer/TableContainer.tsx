@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { saveProjectTable } from '../../redux/projectSlice';
 import DynamicTableBuilder from '../DynamicTableBuilder/DynamicTableBuilder';
+import './TableButtons.css';
 
 const TableContainer = () => {
   const dispatch = useAppDispatch();
@@ -46,10 +47,7 @@ const TableContainer = () => {
         onDirtyChange={setIsDirty}
       />
       {isDirty && (
-        <button
-          onClick={handleSave}
-          style={{ position: 'relative', top:20, left: 0 }}
-        >
+        <button className='table-save-button' onClick={handleSave}>
           Save
         </button>
       )}

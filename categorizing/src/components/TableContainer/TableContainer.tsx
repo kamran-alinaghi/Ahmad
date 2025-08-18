@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { saveProjectTable } from '../../redux/projectSlice';
 import DynamicTableBuilder from '../DynamicTableBuilder/DynamicTableBuilder';
 import './TableButtons.css';
+import { convertExcelToTableData } from '../../utils/readXLSXfile';
 
 const TableContainer = () => {
   const dispatch = useAppDispatch();
@@ -11,12 +12,15 @@ const TableContainer = () => {
     s.projects.list.find(p => p.id === selectedProjectId)?.table
   );
 
+  const [tempTable, setTempTable]=useState(table || { columns: [], rows: [] });
+
   const [localTable, setLocalTable] = useState(table || { columns: [], rows: [] });
   const [isDirty, setIsDirty] = useState(false);
 
   // Restore project table if it changes
   useEffect(() => {
     setLocalTable(table || { columns: [], rows: [] });
+    setTempTable(table || { columns: [], rows: [] });
     setIsDirty(false);
   }, [table]);
 
@@ -42,10 +46,27 @@ const TableContainer = () => {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', top: '150px', padding: '20px' }}>
       <DynamicTableBuilder
-        initialTable={table || { columns: [], rows: [] }}
+        initialTable={tempTable || { columns: [], rows: [] }}
         onChange={setLocalTable}
         onDirtyChange={setIsDirty}
       />
+      <input
+        type="file"
+        accept=".xlsx, .xls"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+
+          convertExcelToTableData(file).then((tableData) => {
+            if (selectedProjectId) {
+              setTempTable(tableData); // or dispatch to Redux
+              setIsDirty(true);
+            }
+            e.target.value = '';
+          });
+        }}
+      />
+
       {isDirty && (
         <button className='table-save-button' onClick={handleSave}>
           Save

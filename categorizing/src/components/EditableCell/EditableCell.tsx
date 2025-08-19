@@ -11,6 +11,7 @@ const EditableCell: React.FC<EditableCellProps> = ({ value, onChange }) => {
     <input
       className="editable-cell-input"
       value={value}
+      type='number'
       onChange={(e) => onChange(e.target.value)}
     />
   );

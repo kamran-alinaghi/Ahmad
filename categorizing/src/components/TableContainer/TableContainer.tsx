@@ -43,6 +43,10 @@ const TableContainer = () => {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isDirty]);
 
+  const Calculation = ()=>{
+    alert('calc');
+  }
+
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', top: '150px', padding: '20px' }}>
       <DynamicTableBuilder
@@ -72,6 +76,9 @@ const TableContainer = () => {
           Save
         </button>
       )}
+      <button className='table-save-button' onClick={Calculation}>
+          Calculate
+        </button>
     </div>
   );
 };

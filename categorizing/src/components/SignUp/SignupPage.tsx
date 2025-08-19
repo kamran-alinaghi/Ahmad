@@ -8,7 +8,7 @@ const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignup = (email: string, password: string) => {
+  const handleSignup = (email: string) => {
     dispatch(setUser({ email }));
     navigate('/projects');
   };

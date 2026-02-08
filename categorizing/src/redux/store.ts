@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import projectReducer from './projectSlice';
+import calcReducer from './calcSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     projects: projectReducer,
+    calculations: calcReducer,
   },
   devTools: true,
 });

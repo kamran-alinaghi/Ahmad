@@ -5,7 +5,7 @@ export const generateEmptyColumn = (data: TableData): TableData => {
     columns: [...data.columns, ''],
     rows: data.rows.map((row) => ({
       ...row,
-      values: [...row.values, ''],
+      values: [...row.values, 0],
     })),
   };
 };

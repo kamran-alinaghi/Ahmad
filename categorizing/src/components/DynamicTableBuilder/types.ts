@@ -1,6 +1,6 @@
 export type TableRow = {
   title: string;
-  values: string[];
+  values: number[];
 };
 
 export type TableData = {

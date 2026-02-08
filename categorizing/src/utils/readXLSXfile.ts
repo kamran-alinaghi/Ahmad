@@ -13,7 +13,7 @@ export function convertExcelToTableData(file: File): Promise<TableData> {
       const json = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as string[][];
 
       if (json.length === 0) {
-        resolve({ columns: [], rows: [] });
+        resolve({ columns: [], rows: [{title:'',values:[]}] });
         return;
       }
 
@@ -24,13 +24,16 @@ export function convertExcelToTableData(file: File): Promise<TableData> {
         const [title, ...values] = row;
         return {
           title: title ?? '',
-          values: values.map(v => v?.toString() ?? ''),
+          values: values.map((v)=>{
+            try{return parseFloat(v);}
+            catch{return 0;}
+          }),
         };
       });
 
       resolve({
         columns: columnHeaders.map(c => c?.toString() ?? ''),
-        rows,
+        rows: rows,
       });
     };
 

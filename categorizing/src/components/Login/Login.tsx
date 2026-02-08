@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
         const snapshot = await getDocs(collection(db, 'projects'));
         const list = snapshot.docs.map((doc) => {
           const tableRead = doc.data().table;
-          var tableContent = {columns:[''],rows:[{title:'',values:['']}]} as TableData
+          var tableContent = {columns:[''],rows:[{title:'',values:[]}]} as TableData
           if (tableRead !== undefined) {
             tableContent = doc.data().table as TableData;
           }

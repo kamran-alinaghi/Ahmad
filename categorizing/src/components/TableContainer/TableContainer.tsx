@@ -4,6 +4,7 @@ import { saveProjectTable } from '../../redux/projectSlice';
 import DynamicTableBuilder from '../DynamicTableBuilder/DynamicTableBuilder';
 import './TableButtons.css';
 import { convertExcelToTableData } from '../../utils/readXLSXfile';
+import { Calculation } from '../../utils/Calcs/Calculation';
 
 const TableContainer = () => {
   const dispatch = useAppDispatch();
@@ -38,14 +39,14 @@ const TableContainer = () => {
     }
   };
 
+  const onCalculate=()=>{
+    Calculation(localTable);
+  }
+
   useEffect(() => {
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isDirty]);
-
-  const Calculation = ()=>{
-    alert('calc');
-  }
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', top: '150px', padding: '20px' }}>
@@ -76,7 +77,7 @@ const TableContainer = () => {
           Save
         </button>
       )}
-      <button className='table-save-button' onClick={Calculation}>
+      <button className='table-save-button' onClick={onCalculate}>
           Calculate
         </button>
     </div>

@@ -17,7 +17,7 @@ export const useDynamicTable = (initial: TableData, onChange?: (data: TableData)
     if (onChange) onChange(table);
   }, [table]);
 
-  const updateCell = (rowIdx: number, colIdx: number, value: string) => {
+  const updateCell = (rowIdx: number, colIdx: number, value: number) => {
     const copy = { ...table };
     copy.rows[rowIdx].values[colIdx] = value;
     setTable(normalizeTable(copy));
@@ -38,7 +38,7 @@ export const useDynamicTable = (initial: TableData, onChange?: (data: TableData)
   const addColumn = () => {
     setTable((prev) => normalizeTable({
       columns: [...prev.columns, ''],
-      rows: prev.rows.map((r) => ({ ...r, values: [...r.values, ''] })),
+      rows: prev.rows.map((r) => ({ ...r, values: [...r.values, 0] })),
     }));
   };
 

@@ -6,7 +6,7 @@ import EditableCell from '../EditableCell/EditableCell';
 
 type Props = {
   table: TableData;
-  updateCell: (row: number, col: number, value: string) => void;
+  updateCell: (row: number, col: number, value: number) => void;
   updateColumnTitle: (col: number, value: string) => void;
   updateRowTitle: (row: number, value: string) => void;
   addColumn: () => void;
@@ -58,8 +58,14 @@ const TableRenderer: React.FC<Props> = ({
               {row.values.map((cell, colIdx) => (
                 <td key={colIdx}>
                   <EditableCell
-                    value={cell}
-                    onChange={(v) => updateCell(rowIdx, colIdx, v)}
+                    value={cell.toString()}
+                    onChange={(v) => 
+                      {
+                        let tempNum = 0;
+                        try{tempNum = parseFloat(v);}
+                        catch{}
+                        updateCell(rowIdx, colIdx, tempNum);
+                      }}
                   />
                 </td>
               ))}

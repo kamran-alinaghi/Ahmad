@@ -1,3 +1,5 @@
+import type { TableData } from "../../components/DynamicTableBuilder/types";
+
 export class Point {
     X: number;
     Y: number;
@@ -141,4 +143,20 @@ export class Members {
 
         return result;
     }
+}
+
+export function TableData2Members(tableData:TableData):Members[] {
+    let count = 0;
+    const members:Members[] = tableData.rows.map((val)=>{
+        const tempMember: Member = {
+            id:count,
+            Name: tableData.rows[count].title,
+            Properties: tableData.rows[count].values
+        };
+        const tempMembers: Members = new Members();
+        tempMembers.Members.push(tempMember);
+        count++;
+        return tempMembers;
+    });
+    return members;
 }

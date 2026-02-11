@@ -1,5 +1,3 @@
-import { addAvgSequence, addWardSequence } from "../../redux/calcSlice";
-import type { AppDispatch } from "../../redux/store";
 import type { Members, Point } from "./Members";
 
 export class AddingSequence {
@@ -21,21 +19,20 @@ export class AddingSequence {
 
 
 export function AddToSequence(
-  dispatch: AppDispatch,
   members: Members[],
-  firstCloseMember: Point,
-  secondCloseMember: Point | null,
-  method: "ward" | "average"
-): void {
+  firstCloseMember: Point | null,
+  secondCloseMember: Point | null
+): AddingSequence {
   const tempStep = new AddingSequence();
+  if (firstCloseMember) {
+    tempStep.SubGroup =
+      members[firstCloseMember.Y].GetIds() ?? [];
 
-  tempStep.SubGroup =
-    members[firstCloseMember.Y].GetIds() ?? [];
+    tempStep.MembersToAdd =
+      members[firstCloseMember.X].GetIds() ?? [];
 
-  tempStep.MembersToAdd =
-    members[firstCloseMember.X].GetIds() ?? [];
-
-  tempStep.FirstDistance = firstCloseMember.Value ?? 0;
+    tempStep.FirstDistance = firstCloseMember.Value ?? 0;
+  }
 
   if (secondCloseMember) {
     tempStep.SecondOption =
@@ -44,9 +41,5 @@ export function AddToSequence(
       secondCloseMember.Value ?? 0;
   }
 
-  if (method === "ward") {
-    dispatch(addWardSequence(tempStep));
-  } else {
-    dispatch(addAvgSequence(tempStep));
-  }
+  return tempStep;
 }

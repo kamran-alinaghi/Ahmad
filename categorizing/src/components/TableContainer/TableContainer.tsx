@@ -26,6 +26,7 @@ const TableContainer = () => {
     setLocalTable(table || { columns: [], rows: [] });
     setTempTable(table || { columns: [], rows: [] });
     setIsDirty(false);
+    setResult(null);
   }, [table]);
 
   const handleSave = () => {

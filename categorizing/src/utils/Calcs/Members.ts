@@ -26,11 +26,11 @@ export function GetPairList(array: any[]): Point[] {
 
 
 export class Member {
-    id: number | null;
+    id: number;
     Name: string;
     Properties: number[];
 
-    constructor(id: number | null = null) {
+    constructor(id: number) {
         this.id = id;
         this.Name = "";
         this.Properties = [];
@@ -42,7 +42,7 @@ export class Members {
     Members: Member[];
 
     constructor() {
-        this.Members = [new Member(null)];
+        this.Members = [new Member(0)];
         this.Members.pop();
     }
 
@@ -121,10 +121,10 @@ export class Members {
         return result;
     }
 
-    #CompareArraysAvrg(): number[] {
-        const result: number[] = [];
-        return result;
-    }
+    // #CompareArraysAvrg(): number[] {
+    //     const result: number[] = [];
+    //     return result;
+    // }
 
     GetIds(): number[] | null {
         if (this.Members.length === 0) {
@@ -147,7 +147,7 @@ export class Members {
 
 export function TableData2Members(tableData:TableData):Members[] {
     let count = 0;
-    const members:Members[] = tableData.rows.map((val)=>{
+    const members:Members[] = tableData.rows.map(()=>{
         const tempMember: Member = {
             id:count,
             Name: tableData.rows[count].title,
@@ -157,6 +157,20 @@ export function TableData2Members(tableData:TableData):Members[] {
         tempMembers.Members.push(tempMember);
         count++;
         return tempMembers;
+    });
+    return members;
+}
+
+export function TableData2Member(tableData:TableData):Member[] {
+    let count = 0;
+    const members:Member[] = tableData.rows.map(()=>{
+        const tempMember: Member = {
+            id:count,
+            Name: tableData.rows[count].title,
+            Properties: tableData.rows[count].values
+        };
+        count++;
+        return tempMember;
     });
     return members;
 }

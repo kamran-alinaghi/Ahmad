@@ -4,7 +4,8 @@ import { saveProjectTable } from '../../redux/projectSlice';
 import DynamicTableBuilder from '../DynamicTableBuilder/DynamicTableBuilder';
 import './TableButtons.css';
 import { convertExcelToTableData } from '../../utils/readXLSXfile';
-import { Calculation } from '../../utils/Calcs/Calculation';
+import { Calculation, type FinalClusterToShow } from '../../utils/Calcs/Calculation';
+import ClusterResults from '../ClusterResults/ClusterResults';
 
 const TableContainer = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,8 @@ const TableContainer = () => {
 
   const [localTable, setLocalTable] = useState(table || { columns: [], rows: [] });
   const [isDirty, setIsDirty] = useState(false);
+  const [result, setResult] = useState<FinalClusterToShow | null>(null);
+
 
   // Restore project table if it changes
   useEffect(() => {
@@ -40,7 +43,8 @@ const TableContainer = () => {
   };
 
   const onCalculate=()=>{
-    Calculation(localTable);
+    const res = Calculation(localTable);
+    setResult(res);
   }
 
   useEffect(() => {
@@ -80,7 +84,9 @@ const TableContainer = () => {
       <button className='table-save-button' onClick={onCalculate}>
           Calculate
         </button>
+        {result && <ClusterResults result={result} />}
     </div>
+    
   );
 };
 

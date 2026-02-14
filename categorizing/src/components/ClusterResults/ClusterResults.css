@@ -1,0 +1,61 @@
+.cluster-results-container {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f8f9fb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cluster-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.cluster-section {
+  margin-bottom: 30px;
+}
+
+.cluster-card {
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: white;
+}
+
+.cluster-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.cluster-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.cluster-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.member-chip {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e6f0ff;
+  font-size: 14px;
+}
+
+.not-clustered {
+  background: #f1f3f5;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.empty-text {
+  color: #777;
+  font-style: italic;
+}
